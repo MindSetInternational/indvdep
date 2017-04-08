@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="investment_companies_db" Class="MyDataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=mindset.sk;Initial Catalog=investment_companies_db;Persist Security Info=True;User ID=investment_db_user" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="investment_companies_dbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Companies" Member="Companies">
+    <Type Name="Company">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Company_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Capital" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Seat" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date_of_Signature_of_APOLS" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_Of_Signature_Of_Company_Documents" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_Of_First_Payment" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_Of_Second_Payment" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Date_Of_Residence_Payment" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Contact_Parson" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Company_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Method" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Eligable_MD_If_Exists" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Company_Companies_Share" Member="Companies_Shares" ThisKey="ID" OtherKey="CompanyID" Type="Companies_Share" />
+      <Association Name="Physical_Person_Company" Member="The_Contact_Person" ThisKey="Contact_Parson" OtherKey="ID" Type="Physical_Person" IsForeignKey="true" />
+      <Association Name="Physical_Person_Company1" Member="The_Managing_Director" ThisKey="Eligable_MD_If_Exists" OtherKey="ID" Type="Physical_Person" IsForeignKey="true" />
+      <Association Name="Company_type_Company" Member="The_Company_type" ThisKey="Company_Type" OtherKey="ID" Type="Company_type" IsForeignKey="true" />
+      <Association Name="Method_Company" Member="Process_Method" ThisKey="Method" OtherKey="ID" Type="Method" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Physical_Persons" Member="Physical_Persons">
+    <Type Name="Physical_Person">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Full_Name_As_in_Passport" Type="System.String" DbType="NVarChar(200)" CanBeNull="true" />
+      <Column Name="Birth_Date" Type="System.DateTime" DbType="Date" CanBeNull="true" />
+      <Column Name="PassportNumber" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Nationality" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Permanent_Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Temp_Address" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone_Number" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Residence_location" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Physical_Person_Company" Member="Companies" ThisKey="ID" OtherKey="Contact_Parson" Type="Company" />
+      <Association Name="Physical_Person_Company1" Member="Companies1" ThisKey="ID" OtherKey="Eligable_MD_If_Exists" Type="Company" />
+      <Association Name="Physical_Person_Companies_Share" Member="Companies_Shares" ThisKey="ID" OtherKey="ShareHolderID" Type="Companies_Share" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Companies_Shares" Member="Companies_Shares">
+    <Type Name="Companies_Share">
+      <Column Name="CompanyID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ShareHolderID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Share_Amount_in_EURO" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Wants_To_Be_MD" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Is_Already_MD" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Already_Got_Residence" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Association Name="Company_Companies_Share" Member="The_Company_Name" ThisKey="CompanyID" OtherKey="ID" Type="Company" IsForeignKey="true" />
+      <Association Name="Physical_Person_Companies_Share" Member="Shareholder" ThisKey="ShareHolderID" OtherKey="ID" Type="Physical_Person" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Company_types" Member="Company_types">
+    <Type Name="Company_type">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Company_Type_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Company_type_Company" Member="Companies" ThisKey="ID" OtherKey="Company_Type" Type="Company" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Methods" Member="Methods">
+    <Type Name="Method">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Method_Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Association Name="Method_Company" Member="Companies" ThisKey="ID" OtherKey="Method" Type="Company" />
+    </Type>
+  </Table>
+</Database>
