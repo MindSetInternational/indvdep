@@ -30,9 +30,6 @@ namespace invdep
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertCompany(Company instance);
-    partial void UpdateCompany(Company instance);
-    partial void DeleteCompany(Company instance);
     partial void InsertPhysical_Person(Physical_Person instance);
     partial void UpdatePhysical_Person(Physical_Person instance);
     partial void DeletePhysical_Person(Physical_Person instance);
@@ -45,6 +42,18 @@ namespace invdep
     partial void InsertMethod(Method instance);
     partial void UpdateMethod(Method instance);
     partial void DeleteMethod(Method instance);
+    partial void InsertCompany(Company instance);
+    partial void UpdateCompany(Company instance);
+    partial void DeleteCompany(Company instance);
+    partial void InsertCompany_Activity(Company_Activity instance);
+    partial void UpdateCompany_Activity(Company_Activity instance);
+    partial void DeleteCompany_Activity(Company_Activity instance);
+    partial void InsertBusiness_Activity(Business_Activity instance);
+    partial void UpdateBusiness_Activity(Business_Activity instance);
+    partial void DeleteBusiness_Activity(Business_Activity instance);
+    partial void InsertActivity_Section(Activity_Section instance);
+    partial void UpdateActivity_Section(Activity_Section instance);
+    partial void DeleteActivity_Section(Activity_Section instance);
     #endregion
 		
 		public MyDataClassesDataContext() : 
@@ -75,14 +84,6 @@ namespace invdep
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Company> Companies
-		{
-			get
-			{
-				return this.GetTable<Company>();
-			}
 		}
 		
 		public System.Data.Linq.Table<Physical_Person> Physical_Persons
@@ -116,571 +117,37 @@ namespace invdep
 				return this.GetTable<Method>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Companies")]
-	public partial class Company : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private string _Company_Name;
-		
-		private string _Capital;
-		
-		private string _Seat;
-		
-		private System.Nullable<System.DateTime> _Date_of_Signature_of_APOLS;
-		
-		private System.Nullable<System.DateTime> _Date_Of_Signature_Of_Company_Documents;
-		
-		private System.Nullable<System.DateTime> _Date_Of_First_Payment;
-		
-		private System.Nullable<System.DateTime> _Date_Of_Second_Payment;
-		
-		private System.Nullable<System.DateTime> _Date_Of_Residence_Payment;
-		
-		private string _Notes;
-		
-		private System.Nullable<int> _Contact_Parson;
-		
-		private System.Nullable<int> _Company_Type;
-		
-		private System.Nullable<int> _Method;
-		
-		private System.Nullable<int> _Eligable_MD_If_Exists;
-		
-		private EntitySet<Companies_Share> _Companies_Shares;
-		
-		private EntityRef<Physical_Person> _The_Contact_Person;
-		
-		private EntityRef<Physical_Person> _The_Managing_Director;
-		
-		private EntityRef<Company_type> _The_Company_type;
-		
-		private EntityRef<Method> _Process_Method;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnCompany_NameChanging(string value);
-    partial void OnCompany_NameChanged();
-    partial void OnCapitalChanging(string value);
-    partial void OnCapitalChanged();
-    partial void OnSeatChanging(string value);
-    partial void OnSeatChanged();
-    partial void OnDate_of_Signature_of_APOLSChanging(System.Nullable<System.DateTime> value);
-    partial void OnDate_of_Signature_of_APOLSChanged();
-    partial void OnDate_Of_Signature_Of_Company_DocumentsChanging(System.Nullable<System.DateTime> value);
-    partial void OnDate_Of_Signature_Of_Company_DocumentsChanged();
-    partial void OnDate_Of_First_PaymentChanging(System.Nullable<System.DateTime> value);
-    partial void OnDate_Of_First_PaymentChanged();
-    partial void OnDate_Of_Second_PaymentChanging(System.Nullable<System.DateTime> value);
-    partial void OnDate_Of_Second_PaymentChanged();
-    partial void OnDate_Of_Residence_PaymentChanging(System.Nullable<System.DateTime> value);
-    partial void OnDate_Of_Residence_PaymentChanged();
-    partial void OnNotesChanging(string value);
-    partial void OnNotesChanged();
-    partial void OnContact_ParsonChanging(System.Nullable<int> value);
-    partial void OnContact_ParsonChanged();
-    partial void OnCompany_TypeChanging(System.Nullable<int> value);
-    partial void OnCompany_TypeChanged();
-    partial void OnMethodChanging(System.Nullable<int> value);
-    partial void OnMethodChanged();
-    partial void OnEligable_MD_If_ExistsChanging(System.Nullable<int> value);
-    partial void OnEligable_MD_If_ExistsChanged();
-    #endregion
-		
-		public Company()
-		{
-			this._Companies_Shares = new EntitySet<Companies_Share>(new Action<Companies_Share>(this.attach_Companies_Shares), new Action<Companies_Share>(this.detach_Companies_Shares));
-			this._The_Contact_Person = default(EntityRef<Physical_Person>);
-			this._The_Managing_Director = default(EntityRef<Physical_Person>);
-			this._The_Company_type = default(EntityRef<Company_type>);
-			this._Process_Method = default(EntityRef<Method>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		public System.Data.Linq.Table<Company> Companies
 		{
 			get
 			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
+				return this.GetTable<Company>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Company_Name", DbType="NVarChar(50)")]
-		public string Company_Name
+		public System.Data.Linq.Table<Company_Activity> Company_Activities
 		{
 			get
 			{
-				return this._Company_Name;
-			}
-			set
-			{
-				if ((this._Company_Name != value))
-				{
-					this.OnCompany_NameChanging(value);
-					this.SendPropertyChanging();
-					this._Company_Name = value;
-					this.SendPropertyChanged("Company_Name");
-					this.OnCompany_NameChanged();
-				}
+				return this.GetTable<Company_Activity>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Capital", DbType="NVarChar(50)")]
-		public string Capital
+		public System.Data.Linq.Table<Business_Activity> Business_Activities
 		{
 			get
 			{
-				return this._Capital;
-			}
-			set
-			{
-				if ((this._Capital != value))
-				{
-					this.OnCapitalChanging(value);
-					this.SendPropertyChanging();
-					this._Capital = value;
-					this.SendPropertyChanged("Capital");
-					this.OnCapitalChanged();
-				}
+				return this.GetTable<Business_Activity>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seat", DbType="NVarChar(50)")]
-		public string Seat
+		public System.Data.Linq.Table<Activity_Section> Activity_Sections
 		{
 			get
 			{
-				return this._Seat;
+				return this.GetTable<Activity_Section>();
 			}
-			set
-			{
-				if ((this._Seat != value))
-				{
-					this.OnSeatChanging(value);
-					this.SendPropertyChanging();
-					this._Seat = value;
-					this.SendPropertyChanged("Seat");
-					this.OnSeatChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_of_Signature_of_APOLS", DbType="Date")]
-		public System.Nullable<System.DateTime> Date_of_Signature_of_APOLS
-		{
-			get
-			{
-				return this._Date_of_Signature_of_APOLS;
-			}
-			set
-			{
-				if ((this._Date_of_Signature_of_APOLS != value))
-				{
-					this.OnDate_of_Signature_of_APOLSChanging(value);
-					this.SendPropertyChanging();
-					this._Date_of_Signature_of_APOLS = value;
-					this.SendPropertyChanged("Date_of_Signature_of_APOLS");
-					this.OnDate_of_Signature_of_APOLSChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Signature_Of_Company_Documents", DbType="Date")]
-		public System.Nullable<System.DateTime> Date_Of_Signature_Of_Company_Documents
-		{
-			get
-			{
-				return this._Date_Of_Signature_Of_Company_Documents;
-			}
-			set
-			{
-				if ((this._Date_Of_Signature_Of_Company_Documents != value))
-				{
-					this.OnDate_Of_Signature_Of_Company_DocumentsChanging(value);
-					this.SendPropertyChanging();
-					this._Date_Of_Signature_Of_Company_Documents = value;
-					this.SendPropertyChanged("Date_Of_Signature_Of_Company_Documents");
-					this.OnDate_Of_Signature_Of_Company_DocumentsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_First_Payment", DbType="Date")]
-		public System.Nullable<System.DateTime> Date_Of_First_Payment
-		{
-			get
-			{
-				return this._Date_Of_First_Payment;
-			}
-			set
-			{
-				if ((this._Date_Of_First_Payment != value))
-				{
-					this.OnDate_Of_First_PaymentChanging(value);
-					this.SendPropertyChanging();
-					this._Date_Of_First_Payment = value;
-					this.SendPropertyChanged("Date_Of_First_Payment");
-					this.OnDate_Of_First_PaymentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Second_Payment", DbType="Date")]
-		public System.Nullable<System.DateTime> Date_Of_Second_Payment
-		{
-			get
-			{
-				return this._Date_Of_Second_Payment;
-			}
-			set
-			{
-				if ((this._Date_Of_Second_Payment != value))
-				{
-					this.OnDate_Of_Second_PaymentChanging(value);
-					this.SendPropertyChanging();
-					this._Date_Of_Second_Payment = value;
-					this.SendPropertyChanged("Date_Of_Second_Payment");
-					this.OnDate_Of_Second_PaymentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Residence_Payment", DbType="Date")]
-		public System.Nullable<System.DateTime> Date_Of_Residence_Payment
-		{
-			get
-			{
-				return this._Date_Of_Residence_Payment;
-			}
-			set
-			{
-				if ((this._Date_Of_Residence_Payment != value))
-				{
-					this.OnDate_Of_Residence_PaymentChanging(value);
-					this.SendPropertyChanging();
-					this._Date_Of_Residence_Payment = value;
-					this.SendPropertyChanged("Date_Of_Residence_Payment");
-					this.OnDate_Of_Residence_PaymentChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NText", UpdateCheck=UpdateCheck.Never)]
-		public string Notes
-		{
-			get
-			{
-				return this._Notes;
-			}
-			set
-			{
-				if ((this._Notes != value))
-				{
-					this.OnNotesChanging(value);
-					this.SendPropertyChanging();
-					this._Notes = value;
-					this.SendPropertyChanged("Notes");
-					this.OnNotesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact_Parson", DbType="Int")]
-		public System.Nullable<int> Contact_Parson
-		{
-			get
-			{
-				return this._Contact_Parson;
-			}
-			set
-			{
-				if ((this._Contact_Parson != value))
-				{
-					if (this._The_Contact_Person.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnContact_ParsonChanging(value);
-					this.SendPropertyChanging();
-					this._Contact_Parson = value;
-					this.SendPropertyChanged("Contact_Parson");
-					this.OnContact_ParsonChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Company_Type", DbType="Int")]
-		public System.Nullable<int> Company_Type
-		{
-			get
-			{
-				return this._Company_Type;
-			}
-			set
-			{
-				if ((this._Company_Type != value))
-				{
-					if (this._The_Company_type.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCompany_TypeChanging(value);
-					this.SendPropertyChanging();
-					this._Company_Type = value;
-					this.SendPropertyChanged("Company_Type");
-					this.OnCompany_TypeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Method", DbType="Int")]
-		public System.Nullable<int> Method
-		{
-			get
-			{
-				return this._Method;
-			}
-			set
-			{
-				if ((this._Method != value))
-				{
-					if (this._Process_Method.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMethodChanging(value);
-					this.SendPropertyChanging();
-					this._Method = value;
-					this.SendPropertyChanged("Method");
-					this.OnMethodChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Eligable_MD_If_Exists", DbType="Int")]
-		public System.Nullable<int> Eligable_MD_If_Exists
-		{
-			get
-			{
-				return this._Eligable_MD_If_Exists;
-			}
-			set
-			{
-				if ((this._Eligable_MD_If_Exists != value))
-				{
-					if (this._The_Managing_Director.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnEligable_MD_If_ExistsChanging(value);
-					this.SendPropertyChanging();
-					this._Eligable_MD_If_Exists = value;
-					this.SendPropertyChanged("Eligable_MD_If_Exists");
-					this.OnEligable_MD_If_ExistsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Companies_Share", Storage="_Companies_Shares", ThisKey="ID", OtherKey="CompanyID")]
-		public EntitySet<Companies_Share> Companies_Shares
-		{
-			get
-			{
-				return this._Companies_Shares;
-			}
-			set
-			{
-				this._Companies_Shares.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Company", Storage="_The_Contact_Person", ThisKey="Contact_Parson", OtherKey="ID", IsForeignKey=true)]
-		public Physical_Person The_Contact_Person
-		{
-			get
-			{
-				return this._The_Contact_Person.Entity;
-			}
-			set
-			{
-				Physical_Person previousValue = this._The_Contact_Person.Entity;
-				if (((previousValue != value) 
-							|| (this._The_Contact_Person.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._The_Contact_Person.Entity = null;
-						previousValue.Companies.Remove(this);
-					}
-					this._The_Contact_Person.Entity = value;
-					if ((value != null))
-					{
-						value.Companies.Add(this);
-						this._Contact_Parson = value.ID;
-					}
-					else
-					{
-						this._Contact_Parson = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("The_Contact_Person");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Company1", Storage="_The_Managing_Director", ThisKey="Eligable_MD_If_Exists", OtherKey="ID", IsForeignKey=true)]
-		public Physical_Person The_Managing_Director
-		{
-			get
-			{
-				return this._The_Managing_Director.Entity;
-			}
-			set
-			{
-				Physical_Person previousValue = this._The_Managing_Director.Entity;
-				if (((previousValue != value) 
-							|| (this._The_Managing_Director.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._The_Managing_Director.Entity = null;
-						previousValue.Companies1.Remove(this);
-					}
-					this._The_Managing_Director.Entity = value;
-					if ((value != null))
-					{
-						value.Companies1.Add(this);
-						this._Eligable_MD_If_Exists = value.ID;
-					}
-					else
-					{
-						this._Eligable_MD_If_Exists = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("The_Managing_Director");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_type_Company", Storage="_The_Company_type", ThisKey="Company_Type", OtherKey="ID", IsForeignKey=true)]
-		public Company_type The_Company_type
-		{
-			get
-			{
-				return this._The_Company_type.Entity;
-			}
-			set
-			{
-				Company_type previousValue = this._The_Company_type.Entity;
-				if (((previousValue != value) 
-							|| (this._The_Company_type.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._The_Company_type.Entity = null;
-						previousValue.Companies.Remove(this);
-					}
-					this._The_Company_type.Entity = value;
-					if ((value != null))
-					{
-						value.Companies.Add(this);
-						this._Company_Type = value.ID;
-					}
-					else
-					{
-						this._Company_Type = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("The_Company_type");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_Company", Storage="_Process_Method", ThisKey="Method", OtherKey="ID", IsForeignKey=true)]
-		public Method Process_Method
-		{
-			get
-			{
-				return this._Process_Method.Entity;
-			}
-			set
-			{
-				Method previousValue = this._Process_Method.Entity;
-				if (((previousValue != value) 
-							|| (this._Process_Method.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Process_Method.Entity = null;
-						previousValue.Companies.Remove(this);
-					}
-					this._Process_Method.Entity = value;
-					if ((value != null))
-					{
-						value.Companies.Add(this);
-						this._Method = value.ID;
-					}
-					else
-					{
-						this._Method = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Process_Method");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Companies_Shares(Companies_Share entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Company_Name = this;
-		}
-		
-		private void detach_Companies_Shares(Companies_Share entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Company_Name = null;
 		}
 	}
 	
@@ -712,11 +179,11 @@ namespace invdep
 		
 		private string _Notes;
 		
+		private EntitySet<Companies_Share> _Companies_Shares;
+		
 		private EntitySet<Company> _Companies;
 		
 		private EntitySet<Company> _Companies1;
-		
-		private EntitySet<Companies_Share> _Companies_Shares;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -748,9 +215,9 @@ namespace invdep
 		
 		public Physical_Person()
 		{
+			this._Companies_Shares = new EntitySet<Companies_Share>(new Action<Companies_Share>(this.attach_Companies_Shares), new Action<Companies_Share>(this.detach_Companies_Shares));
 			this._Companies = new EntitySet<Company>(new Action<Company>(this.attach_Companies), new Action<Company>(this.detach_Companies));
 			this._Companies1 = new EntitySet<Company>(new Action<Company>(this.attach_Companies1), new Action<Company>(this.detach_Companies1));
-			this._Companies_Shares = new EntitySet<Companies_Share>(new Action<Companies_Share>(this.attach_Companies_Shares), new Action<Companies_Share>(this.detach_Companies_Shares));
 			OnCreated();
 		}
 		
@@ -974,6 +441,19 @@ namespace invdep
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Companies_Share", Storage="_Companies_Shares", ThisKey="ID", OtherKey="ShareHolderID")]
+		public EntitySet<Companies_Share> Companies_Shares
+		{
+			get
+			{
+				return this._Companies_Shares;
+			}
+			set
+			{
+				this._Companies_Shares.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Company", Storage="_Companies", ThisKey="ID", OtherKey="Contact_Parson")]
 		public EntitySet<Company> Companies
 		{
@@ -1000,19 +480,6 @@ namespace invdep
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Companies_Share", Storage="_Companies_Shares", ThisKey="ID", OtherKey="ShareHolderID")]
-		public EntitySet<Companies_Share> Companies_Shares
-		{
-			get
-			{
-				return this._Companies_Shares;
-			}
-			set
-			{
-				this._Companies_Shares.Assign(value);
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1033,30 +500,6 @@ namespace invdep
 			}
 		}
 		
-		private void attach_Companies(Company entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Contact_Person = this;
-		}
-		
-		private void detach_Companies(Company entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Contact_Person = null;
-		}
-		
-		private void attach_Companies1(Company entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Managing_Director = this;
-		}
-		
-		private void detach_Companies1(Company entity)
-		{
-			this.SendPropertyChanging();
-			entity.The_Managing_Director = null;
-		}
-		
 		private void attach_Companies_Shares(Companies_Share entity)
 		{
 			this.SendPropertyChanging();
@@ -1067,6 +510,30 @@ namespace invdep
 		{
 			this.SendPropertyChanging();
 			entity.Shareholder = null;
+		}
+		
+		private void attach_Companies(Company entity)
+		{
+			this.SendPropertyChanging();
+			entity.Physical_Person = this;
+		}
+		
+		private void detach_Companies(Company entity)
+		{
+			this.SendPropertyChanging();
+			entity.Physical_Person = null;
+		}
+		
+		private void attach_Companies1(Company entity)
+		{
+			this.SendPropertyChanging();
+			entity.Physical_Person1 = this;
+		}
+		
+		private void detach_Companies1(Company entity)
+		{
+			this.SendPropertyChanging();
+			entity.Physical_Person1 = null;
 		}
 	}
 	
@@ -1088,9 +555,9 @@ namespace invdep
 		
 		private System.Nullable<bool> _Already_Got_Residence;
 		
-		private EntityRef<Company> _The_Company_Name;
-		
 		private EntityRef<Physical_Person> _Shareholder;
+		
+		private EntityRef<Company> _Company;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1112,8 +579,8 @@ namespace invdep
 		
 		public Companies_Share()
 		{
-			this._The_Company_Name = default(EntityRef<Company>);
 			this._Shareholder = default(EntityRef<Physical_Person>);
+			this._Company = default(EntityRef<Company>);
 			OnCreated();
 		}
 		
@@ -1128,7 +595,7 @@ namespace invdep
 			{
 				if ((this._CompanyID != value))
 				{
-					if (this._The_Company_Name.HasLoadedOrAssignedValue)
+					if (this._Company.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -1245,40 +712,6 @@ namespace invdep
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Companies_Share", Storage="_The_Company_Name", ThisKey="CompanyID", OtherKey="ID", IsForeignKey=true)]
-		public Company The_Company_Name
-		{
-			get
-			{
-				return this._The_Company_Name.Entity;
-			}
-			set
-			{
-				Company previousValue = this._The_Company_Name.Entity;
-				if (((previousValue != value) 
-							|| (this._The_Company_Name.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._The_Company_Name.Entity = null;
-						previousValue.Companies_Shares.Remove(this);
-					}
-					this._The_Company_Name.Entity = value;
-					if ((value != null))
-					{
-						value.Companies_Shares.Add(this);
-						this._CompanyID = value.ID;
-					}
-					else
-					{
-						this._CompanyID = default(int);
-					}
-					this.SendPropertyChanged("The_Company_Name");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Companies_Share", Storage="_Shareholder", ThisKey="ShareHolderID", OtherKey="ID", IsForeignKey=true)]
 		public Physical_Person Shareholder
 		{
@@ -1309,6 +742,40 @@ namespace invdep
 						this._ShareHolderID = default(int);
 					}
 					this.SendPropertyChanged("Shareholder");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Companies_Share", Storage="_Company", ThisKey="CompanyID", OtherKey="ID", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.Companies_Shares.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.Companies_Shares.Add(this);
+						this._CompanyID = value.ID;
+					}
+					else
+					{
+						this._CompanyID = default(int);
+					}
+					this.SendPropertyChanged("Company");
 				}
 			}
 		}
@@ -1462,13 +929,13 @@ namespace invdep
 		private void attach_Companies(Company entity)
 		{
 			this.SendPropertyChanging();
-			entity.The_Company_type = this;
+			entity.Company_type1 = this;
 		}
 		
 		private void detach_Companies(Company entity)
 		{
 			this.SendPropertyChanging();
-			entity.The_Company_type = null;
+			entity.Company_type1 = null;
 		}
 	}
 	
@@ -1600,13 +1067,1184 @@ namespace invdep
 		private void attach_Companies(Company entity)
 		{
 			this.SendPropertyChanging();
-			entity.Process_Method = this;
+			entity.Method1 = this;
 		}
 		
 		private void detach_Companies(Company entity)
 		{
 			this.SendPropertyChanging();
-			entity.Process_Method = null;
+			entity.Method1 = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Companies")]
+	public partial class Company : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Company_Name;
+		
+		private string _Capital;
+		
+		private string _Seat;
+		
+		private System.Nullable<System.DateTime> _Date_of_Signature_of_APOLS;
+		
+		private System.Nullable<System.DateTime> _Date_Of_Signature_Of_Company_Documents;
+		
+		private System.Nullable<System.DateTime> _Date_Of_First_Payment;
+		
+		private System.Nullable<System.DateTime> _Date_Of_Second_Payment;
+		
+		private System.Nullable<System.DateTime> _Date_Of_Residence_Payment;
+		
+		private string _Notes;
+		
+		private System.Nullable<int> _Contact_Parson;
+		
+		private System.Nullable<int> _Company_Type;
+		
+		private System.Nullable<int> _Method;
+		
+		private System.Nullable<int> _Eligable_MD_If_Exists;
+		
+		private EntitySet<Companies_Share> _Companies_Shares;
+		
+		private EntitySet<Company_Activity> _Company_Activities;
+		
+		private EntityRef<Company_type> _Company_type1;
+		
+		private EntityRef<Physical_Person> _Physical_Person;
+		
+		private EntityRef<Physical_Person> _Physical_Person1;
+		
+		private EntityRef<Method> _Method1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnCompany_NameChanging(string value);
+    partial void OnCompany_NameChanged();
+    partial void OnCapitalChanging(string value);
+    partial void OnCapitalChanged();
+    partial void OnSeatChanging(string value);
+    partial void OnSeatChanged();
+    partial void OnDate_of_Signature_of_APOLSChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_of_Signature_of_APOLSChanged();
+    partial void OnDate_Of_Signature_Of_Company_DocumentsChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_Of_Signature_Of_Company_DocumentsChanged();
+    partial void OnDate_Of_First_PaymentChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_Of_First_PaymentChanged();
+    partial void OnDate_Of_Second_PaymentChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_Of_Second_PaymentChanged();
+    partial void OnDate_Of_Residence_PaymentChanging(System.Nullable<System.DateTime> value);
+    partial void OnDate_Of_Residence_PaymentChanged();
+    partial void OnNotesChanging(string value);
+    partial void OnNotesChanged();
+    partial void OnContact_ParsonChanging(System.Nullable<int> value);
+    partial void OnContact_ParsonChanged();
+    partial void OnCompany_TypeChanging(System.Nullable<int> value);
+    partial void OnCompany_TypeChanged();
+    partial void OnMethodChanging(System.Nullable<int> value);
+    partial void OnMethodChanged();
+    partial void OnEligable_MD_If_ExistsChanging(System.Nullable<int> value);
+    partial void OnEligable_MD_If_ExistsChanged();
+    #endregion
+		
+		public Company()
+		{
+			this._Companies_Shares = new EntitySet<Companies_Share>(new Action<Companies_Share>(this.attach_Companies_Shares), new Action<Companies_Share>(this.detach_Companies_Shares));
+			this._Company_Activities = new EntitySet<Company_Activity>(new Action<Company_Activity>(this.attach_Company_Activities), new Action<Company_Activity>(this.detach_Company_Activities));
+			this._Company_type1 = default(EntityRef<Company_type>);
+			this._Physical_Person = default(EntityRef<Physical_Person>);
+			this._Physical_Person1 = default(EntityRef<Physical_Person>);
+			this._Method1 = default(EntityRef<Method>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Company_Name", DbType="NVarChar(50)")]
+		public string Company_Name
+		{
+			get
+			{
+				return this._Company_Name;
+			}
+			set
+			{
+				if ((this._Company_Name != value))
+				{
+					this.OnCompany_NameChanging(value);
+					this.SendPropertyChanging();
+					this._Company_Name = value;
+					this.SendPropertyChanged("Company_Name");
+					this.OnCompany_NameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Capital", DbType="NVarChar(50)")]
+		public string Capital
+		{
+			get
+			{
+				return this._Capital;
+			}
+			set
+			{
+				if ((this._Capital != value))
+				{
+					this.OnCapitalChanging(value);
+					this.SendPropertyChanging();
+					this._Capital = value;
+					this.SendPropertyChanged("Capital");
+					this.OnCapitalChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Seat", DbType="NVarChar(50)")]
+		public string Seat
+		{
+			get
+			{
+				return this._Seat;
+			}
+			set
+			{
+				if ((this._Seat != value))
+				{
+					this.OnSeatChanging(value);
+					this.SendPropertyChanging();
+					this._Seat = value;
+					this.SendPropertyChanged("Seat");
+					this.OnSeatChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_of_Signature_of_APOLS", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_of_Signature_of_APOLS
+		{
+			get
+			{
+				return this._Date_of_Signature_of_APOLS;
+			}
+			set
+			{
+				if ((this._Date_of_Signature_of_APOLS != value))
+				{
+					this.OnDate_of_Signature_of_APOLSChanging(value);
+					this.SendPropertyChanging();
+					this._Date_of_Signature_of_APOLS = value;
+					this.SendPropertyChanged("Date_of_Signature_of_APOLS");
+					this.OnDate_of_Signature_of_APOLSChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Signature_Of_Company_Documents", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_Of_Signature_Of_Company_Documents
+		{
+			get
+			{
+				return this._Date_Of_Signature_Of_Company_Documents;
+			}
+			set
+			{
+				if ((this._Date_Of_Signature_Of_Company_Documents != value))
+				{
+					this.OnDate_Of_Signature_Of_Company_DocumentsChanging(value);
+					this.SendPropertyChanging();
+					this._Date_Of_Signature_Of_Company_Documents = value;
+					this.SendPropertyChanged("Date_Of_Signature_Of_Company_Documents");
+					this.OnDate_Of_Signature_Of_Company_DocumentsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_First_Payment", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_Of_First_Payment
+		{
+			get
+			{
+				return this._Date_Of_First_Payment;
+			}
+			set
+			{
+				if ((this._Date_Of_First_Payment != value))
+				{
+					this.OnDate_Of_First_PaymentChanging(value);
+					this.SendPropertyChanging();
+					this._Date_Of_First_Payment = value;
+					this.SendPropertyChanged("Date_Of_First_Payment");
+					this.OnDate_Of_First_PaymentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Second_Payment", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_Of_Second_Payment
+		{
+			get
+			{
+				return this._Date_Of_Second_Payment;
+			}
+			set
+			{
+				if ((this._Date_Of_Second_Payment != value))
+				{
+					this.OnDate_Of_Second_PaymentChanging(value);
+					this.SendPropertyChanging();
+					this._Date_Of_Second_Payment = value;
+					this.SendPropertyChanged("Date_Of_Second_Payment");
+					this.OnDate_Of_Second_PaymentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date_Of_Residence_Payment", DbType="Date")]
+		public System.Nullable<System.DateTime> Date_Of_Residence_Payment
+		{
+			get
+			{
+				return this._Date_Of_Residence_Payment;
+			}
+			set
+			{
+				if ((this._Date_Of_Residence_Payment != value))
+				{
+					this.OnDate_Of_Residence_PaymentChanging(value);
+					this.SendPropertyChanging();
+					this._Date_Of_Residence_Payment = value;
+					this.SendPropertyChanged("Date_Of_Residence_Payment");
+					this.OnDate_Of_Residence_PaymentChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Notes", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Notes
+		{
+			get
+			{
+				return this._Notes;
+			}
+			set
+			{
+				if ((this._Notes != value))
+				{
+					this.OnNotesChanging(value);
+					this.SendPropertyChanging();
+					this._Notes = value;
+					this.SendPropertyChanged("Notes");
+					this.OnNotesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contact_Parson", DbType="Int")]
+		public System.Nullable<int> Contact_Parson
+		{
+			get
+			{
+				return this._Contact_Parson;
+			}
+			set
+			{
+				if ((this._Contact_Parson != value))
+				{
+					if (this._Physical_Person.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnContact_ParsonChanging(value);
+					this.SendPropertyChanging();
+					this._Contact_Parson = value;
+					this.SendPropertyChanged("Contact_Parson");
+					this.OnContact_ParsonChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Company_Type", DbType="Int")]
+		public System.Nullable<int> Company_Type
+		{
+			get
+			{
+				return this._Company_Type;
+			}
+			set
+			{
+				if ((this._Company_Type != value))
+				{
+					if (this._Company_type1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompany_TypeChanging(value);
+					this.SendPropertyChanging();
+					this._Company_Type = value;
+					this.SendPropertyChanged("Company_Type");
+					this.OnCompany_TypeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Method", DbType="Int")]
+		public System.Nullable<int> Method
+		{
+			get
+			{
+				return this._Method;
+			}
+			set
+			{
+				if ((this._Method != value))
+				{
+					if (this._Method1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMethodChanging(value);
+					this.SendPropertyChanging();
+					this._Method = value;
+					this.SendPropertyChanged("Method");
+					this.OnMethodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Eligable_MD_If_Exists", DbType="Int")]
+		public System.Nullable<int> Eligable_MD_If_Exists
+		{
+			get
+			{
+				return this._Eligable_MD_If_Exists;
+			}
+			set
+			{
+				if ((this._Eligable_MD_If_Exists != value))
+				{
+					if (this._Physical_Person1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnEligable_MD_If_ExistsChanging(value);
+					this.SendPropertyChanging();
+					this._Eligable_MD_If_Exists = value;
+					this.SendPropertyChanged("Eligable_MD_If_Exists");
+					this.OnEligable_MD_If_ExistsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Companies_Share", Storage="_Companies_Shares", ThisKey="ID", OtherKey="CompanyID")]
+		public EntitySet<Companies_Share> Companies_Shares
+		{
+			get
+			{
+				return this._Companies_Shares;
+			}
+			set
+			{
+				this._Companies_Shares.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Company_Activity", Storage="_Company_Activities", ThisKey="ID", OtherKey="CompanyID")]
+		public EntitySet<Company_Activity> Company_Activities
+		{
+			get
+			{
+				return this._Company_Activities;
+			}
+			set
+			{
+				this._Company_Activities.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_type_Company", Storage="_Company_type1", ThisKey="Company_Type", OtherKey="ID", IsForeignKey=true)]
+		public Company_type Company_type1
+		{
+			get
+			{
+				return this._Company_type1.Entity;
+			}
+			set
+			{
+				Company_type previousValue = this._Company_type1.Entity;
+				if (((previousValue != value) 
+							|| (this._Company_type1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company_type1.Entity = null;
+						previousValue.Companies.Remove(this);
+					}
+					this._Company_type1.Entity = value;
+					if ((value != null))
+					{
+						value.Companies.Add(this);
+						this._Company_Type = value.ID;
+					}
+					else
+					{
+						this._Company_Type = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Company_type1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Company", Storage="_Physical_Person", ThisKey="Contact_Parson", OtherKey="ID", IsForeignKey=true)]
+		public Physical_Person Physical_Person
+		{
+			get
+			{
+				return this._Physical_Person.Entity;
+			}
+			set
+			{
+				Physical_Person previousValue = this._Physical_Person.Entity;
+				if (((previousValue != value) 
+							|| (this._Physical_Person.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Physical_Person.Entity = null;
+						previousValue.Companies.Remove(this);
+					}
+					this._Physical_Person.Entity = value;
+					if ((value != null))
+					{
+						value.Companies.Add(this);
+						this._Contact_Parson = value.ID;
+					}
+					else
+					{
+						this._Contact_Parson = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Physical_Person");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Physical_Person_Company1", Storage="_Physical_Person1", ThisKey="Eligable_MD_If_Exists", OtherKey="ID", IsForeignKey=true)]
+		public Physical_Person Physical_Person1
+		{
+			get
+			{
+				return this._Physical_Person1.Entity;
+			}
+			set
+			{
+				Physical_Person previousValue = this._Physical_Person1.Entity;
+				if (((previousValue != value) 
+							|| (this._Physical_Person1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Physical_Person1.Entity = null;
+						previousValue.Companies1.Remove(this);
+					}
+					this._Physical_Person1.Entity = value;
+					if ((value != null))
+					{
+						value.Companies1.Add(this);
+						this._Eligable_MD_If_Exists = value.ID;
+					}
+					else
+					{
+						this._Eligable_MD_If_Exists = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Physical_Person1");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Method_Company", Storage="_Method1", ThisKey="Method", OtherKey="ID", IsForeignKey=true)]
+		public Method Method1
+		{
+			get
+			{
+				return this._Method1.Entity;
+			}
+			set
+			{
+				Method previousValue = this._Method1.Entity;
+				if (((previousValue != value) 
+							|| (this._Method1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Method1.Entity = null;
+						previousValue.Companies.Remove(this);
+					}
+					this._Method1.Entity = value;
+					if ((value != null))
+					{
+						value.Companies.Add(this);
+						this._Method = value.ID;
+					}
+					else
+					{
+						this._Method = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Method1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Companies_Shares(Companies_Share entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_Companies_Shares(Companies_Share entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
+		}
+		
+		private void attach_Company_Activities(Company_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = this;
+		}
+		
+		private void detach_Company_Activities(Company_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Company = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Investment_DB_User.[Company Activities]")]
+	public partial class Company_Activity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CompanyID;
+		
+		private int _ActivityID;
+		
+		private EntityRef<Company> _Company;
+		
+		private EntityRef<Business_Activity> _Business_Activity;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCompanyIDChanging(int value);
+    partial void OnCompanyIDChanged();
+    partial void OnActivityIDChanging(int value);
+    partial void OnActivityIDChanged();
+    #endregion
+		
+		public Company_Activity()
+		{
+			this._Company = default(EntityRef<Company>);
+			this._Business_Activity = default(EntityRef<Business_Activity>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompanyID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int CompanyID
+		{
+			get
+			{
+				return this._CompanyID;
+			}
+			set
+			{
+				if ((this._CompanyID != value))
+				{
+					if (this._Company.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCompanyIDChanging(value);
+					this.SendPropertyChanging();
+					this._CompanyID = value;
+					this.SendPropertyChanged("CompanyID");
+					this.OnCompanyIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ActivityID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int ActivityID
+		{
+			get
+			{
+				return this._ActivityID;
+			}
+			set
+			{
+				if ((this._ActivityID != value))
+				{
+					if (this._Business_Activity.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnActivityIDChanging(value);
+					this.SendPropertyChanging();
+					this._ActivityID = value;
+					this.SendPropertyChanged("ActivityID");
+					this.OnActivityIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Company_Company_Activity", Storage="_Company", ThisKey="CompanyID", OtherKey="ID", IsForeignKey=true)]
+		public Company Company
+		{
+			get
+			{
+				return this._Company.Entity;
+			}
+			set
+			{
+				Company previousValue = this._Company.Entity;
+				if (((previousValue != value) 
+							|| (this._Company.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Company.Entity = null;
+						previousValue.Company_Activities.Remove(this);
+					}
+					this._Company.Entity = value;
+					if ((value != null))
+					{
+						value.Company_Activities.Add(this);
+						this._CompanyID = value.ID;
+					}
+					else
+					{
+						this._CompanyID = default(int);
+					}
+					this.SendPropertyChanged("Company");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Business_Activity_Company_Activity", Storage="_Business_Activity", ThisKey="ActivityID", OtherKey="ID", IsForeignKey=true)]
+		public Business_Activity Business_Activity
+		{
+			get
+			{
+				return this._Business_Activity.Entity;
+			}
+			set
+			{
+				Business_Activity previousValue = this._Business_Activity.Entity;
+				if (((previousValue != value) 
+							|| (this._Business_Activity.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Business_Activity.Entity = null;
+						previousValue.Company_Activities.Remove(this);
+					}
+					this._Business_Activity.Entity = value;
+					if ((value != null))
+					{
+						value.Company_Activities.Add(this);
+						this._ActivityID = value.ID;
+					}
+					else
+					{
+						this._ActivityID = default(int);
+					}
+					this.SendPropertyChanged("Business_Activity");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Investment_DB_User.[Business Activities]")]
+	public partial class Business_Activity : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Activity_Name_EN;
+		
+		private string _Activity_Name_SK;
+		
+		private string _Activity_Description_EN;
+		
+		private string _Activity_Description_SK;
+		
+		private System.Nullable<int> _Activity_Code_Number;
+		
+		private System.Nullable<int> _Activity_Section;
+		
+		private EntitySet<Company_Activity> _Company_Activities;
+		
+		private EntityRef<Activity_Section> _Activity_Section1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnActivity_Name_ENChanging(string value);
+    partial void OnActivity_Name_ENChanged();
+    partial void OnActivity_Name_SKChanging(string value);
+    partial void OnActivity_Name_SKChanged();
+    partial void OnActivity_Description_ENChanging(string value);
+    partial void OnActivity_Description_ENChanged();
+    partial void OnActivity_Description_SKChanging(string value);
+    partial void OnActivity_Description_SKChanged();
+    partial void OnActivity_Code_NumberChanging(System.Nullable<int> value);
+    partial void OnActivity_Code_NumberChanged();
+    partial void OnActivity_SectionChanging(System.Nullable<int> value);
+    partial void OnActivity_SectionChanged();
+    #endregion
+		
+		public Business_Activity()
+		{
+			this._Company_Activities = new EntitySet<Company_Activity>(new Action<Company_Activity>(this.attach_Company_Activities), new Action<Company_Activity>(this.detach_Company_Activities));
+			this._Activity_Section1 = default(EntityRef<Activity_Section>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Name EN]", Storage="_Activity_Name_EN", DbType="NVarChar(150)")]
+		public string Activity_Name_EN
+		{
+			get
+			{
+				return this._Activity_Name_EN;
+			}
+			set
+			{
+				if ((this._Activity_Name_EN != value))
+				{
+					this.OnActivity_Name_ENChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Name_EN = value;
+					this.SendPropertyChanged("Activity_Name_EN");
+					this.OnActivity_Name_ENChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Name SK]", Storage="_Activity_Name_SK", DbType="NVarChar(150)")]
+		public string Activity_Name_SK
+		{
+			get
+			{
+				return this._Activity_Name_SK;
+			}
+			set
+			{
+				if ((this._Activity_Name_SK != value))
+				{
+					this.OnActivity_Name_SKChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Name_SK = value;
+					this.SendPropertyChanged("Activity_Name_SK");
+					this.OnActivity_Name_SKChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Description EN]", Storage="_Activity_Description_EN", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Activity_Description_EN
+		{
+			get
+			{
+				return this._Activity_Description_EN;
+			}
+			set
+			{
+				if ((this._Activity_Description_EN != value))
+				{
+					this.OnActivity_Description_ENChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Description_EN = value;
+					this.SendPropertyChanged("Activity_Description_EN");
+					this.OnActivity_Description_ENChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Description SK]", Storage="_Activity_Description_SK", DbType="NText", UpdateCheck=UpdateCheck.Never)]
+		public string Activity_Description_SK
+		{
+			get
+			{
+				return this._Activity_Description_SK;
+			}
+			set
+			{
+				if ((this._Activity_Description_SK != value))
+				{
+					this.OnActivity_Description_SKChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Description_SK = value;
+					this.SendPropertyChanged("Activity_Description_SK");
+					this.OnActivity_Description_SKChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Code Number]", Storage="_Activity_Code_Number", DbType="Int")]
+		public System.Nullable<int> Activity_Code_Number
+		{
+			get
+			{
+				return this._Activity_Code_Number;
+			}
+			set
+			{
+				if ((this._Activity_Code_Number != value))
+				{
+					this.OnActivity_Code_NumberChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Code_Number = value;
+					this.SendPropertyChanged("Activity_Code_Number");
+					this.OnActivity_Code_NumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Activity Section]", Storage="_Activity_Section", DbType="Int")]
+		public System.Nullable<int> Activity_Section
+		{
+			get
+			{
+				return this._Activity_Section;
+			}
+			set
+			{
+				if ((this._Activity_Section != value))
+				{
+					this.OnActivity_SectionChanging(value);
+					this.SendPropertyChanging();
+					this._Activity_Section = value;
+					this.SendPropertyChanged("Activity_Section");
+					this.OnActivity_SectionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Business_Activity_Company_Activity", Storage="_Company_Activities", ThisKey="ID", OtherKey="ActivityID")]
+		public EntitySet<Company_Activity> Company_Activities
+		{
+			get
+			{
+				return this._Company_Activities;
+			}
+			set
+			{
+				this._Company_Activities.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Section_Business_Activity", Storage="_Activity_Section1", ThisKey="Activity_Section", OtherKey="ID", IsForeignKey=true)]
+		public Activity_Section Activity_Section1
+		{
+			get
+			{
+				return this._Activity_Section1.Entity;
+			}
+			set
+			{
+				Activity_Section previousValue = this._Activity_Section1.Entity;
+				if (((previousValue != value) 
+							|| (this._Activity_Section1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Activity_Section1.Entity = null;
+						previousValue.Business_Activities.Remove(this);
+					}
+					this._Activity_Section1.Entity = value;
+					if ((value != null))
+					{
+						value.Business_Activities.Add(this);
+						this._Activity_Section = value.ID;
+					}
+					else
+					{
+						this._Activity_Section = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Activity_Section1");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Company_Activities(Company_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Business_Activity = this;
+		}
+		
+		private void detach_Company_Activities(Company_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Business_Activity = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="Investment_DB_User.[Activity Sections]")]
+	public partial class Activity_Section : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Section_Name_EN;
+		
+		private string _Section_Name_SK;
+		
+		private EntitySet<Business_Activity> _Business_Activities;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSection_Name_ENChanging(string value);
+    partial void OnSection_Name_ENChanged();
+    partial void OnSection_Name_SKChanging(string value);
+    partial void OnSection_Name_SKChanged();
+    #endregion
+		
+		public Activity_Section()
+		{
+			this._Business_Activities = new EntitySet<Business_Activity>(new Action<Business_Activity>(this.attach_Business_Activities), new Action<Business_Activity>(this.detach_Business_Activities));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Section Name EN]", Storage="_Section_Name_EN", DbType="NVarChar(50)")]
+		public string Section_Name_EN
+		{
+			get
+			{
+				return this._Section_Name_EN;
+			}
+			set
+			{
+				if ((this._Section_Name_EN != value))
+				{
+					this.OnSection_Name_ENChanging(value);
+					this.SendPropertyChanging();
+					this._Section_Name_EN = value;
+					this.SendPropertyChanged("Section_Name_EN");
+					this.OnSection_Name_ENChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[Section Name SK]", Storage="_Section_Name_SK", DbType="NVarChar(50)")]
+		public string Section_Name_SK
+		{
+			get
+			{
+				return this._Section_Name_SK;
+			}
+			set
+			{
+				if ((this._Section_Name_SK != value))
+				{
+					this.OnSection_Name_SKChanging(value);
+					this.SendPropertyChanging();
+					this._Section_Name_SK = value;
+					this.SendPropertyChanged("Section_Name_SK");
+					this.OnSection_Name_SKChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Activity_Section_Business_Activity", Storage="_Business_Activities", ThisKey="ID", OtherKey="Activity_Section")]
+		public EntitySet<Business_Activity> Business_Activities
+		{
+			get
+			{
+				return this._Business_Activities;
+			}
+			set
+			{
+				this._Business_Activities.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Business_Activities(Business_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity_Section1 = this;
+		}
+		
+		private void detach_Business_Activities(Business_Activity entity)
+		{
+			this.SendPropertyChanging();
+			entity.Activity_Section1 = null;
 		}
 	}
 }
